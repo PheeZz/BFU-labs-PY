@@ -58,7 +58,8 @@ def union(*args):
 
 if __name__ == '__main__':
     print(f'#1: {union((1, 2, 3))}\n\n')
-    _ = PrettyPrinter(15)
+
+    _ = PrettyPrinter(int(input('Enter number for triangle and pyramid: ')))
     _.int_output()
     _.str_output()
     _.triangle()
