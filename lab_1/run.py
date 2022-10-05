@@ -1,6 +1,3 @@
-from string import whitespace
-
-
 class PrettyPrinter():
     def __init__(self, number: int):
         self._number = number
