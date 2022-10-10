@@ -49,7 +49,7 @@ class PrettyPrinter():
             print(item)
 
 
-def union(*args):
+def union(*args) -> int:
     return 3 - len(set().union(*args))
 
 
