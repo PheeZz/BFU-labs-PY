@@ -124,3 +124,5 @@ if __name__ == '__main__':
     # _ = Num_to_string(int(input('Enter number: ')))
     _ = Num_to_string(12)
     print(_.to_string())
+
+    print('\nby Daniil Y. 2022')
