@@ -2,7 +2,7 @@ class Encoder():
     def __init__(self, input_encode: str = 'YYYYggkeeeAAABV', input_decode: str = 'Y4g2ke3A3BV') -> None:
         self._alphabet_encode = 'abcdefghijklmnopqrstuvwxyz'
         self._alphabet_encode = self._alphabet_encode.upper() + self._alphabet_encode
-        self._alphabet_decode = self._alphabet_encode + '1234567890'
+        self._alphabet_decode = f'{self._alphabet_encode}1234567890'
         self._input_encode = input_encode.strip()
         self._input_decode = input_decode.strip()
 
@@ -10,34 +10,27 @@ class Encoder():
         # task 1 encode input str 'YYYYggkeeeAAABV' -> 'Y4g2ke3A3BV'
 
         output_str = str()
-        if set(self._input_encode).issubset(set(self._alphabet_encode)):
-            temp_string = self._input_encode
-            while (len(temp_string) > 0):
-                # count letter in string
-                count = temp_string.count(temp_string[0])
-                # if count > 1 -> add letter and count to output_str
-                output_str += temp_string[0] + \
-                    str(count) if count > 1 else temp_string[0]
-                temp_string = temp_string.replace(temp_string[0], '')
-        else:
+        if not set(self._input_encode).issubset(set(self._alphabet_encode)):
             raise ValueError('Wrong input string')
+        temp_string = self._input_encode
+        while (len(temp_string) > 0):
+            # count letter in string
+            count = temp_string.count(temp_string[0])
+            # if count > 1 -> add letter and count to output_str
+            output_str += temp_string[0] + \
+                    str(count) if count > 1 else temp_string[0]
+            temp_string = temp_string.replace(temp_string[0], '')
         return output_str
 
     def decode_string(self):
         # task 1.1 decode input str 'Y4g2ke3A3BV' -> 'YYYYggkeeeAAABV'
 
         output_str = str()
-        if set(self._input_decode).issubset(set(self._alphabet_decode)):
-            for char in range(len(self._input_decode)):
-                if self._input_decode[char].isdigit():
-                    # if char is digit -> add previous char*digit to output_str
-                    output_str += self._input_decode[char-1] * \
-                        (int(self._input_decode[char])-1)
-                else:
-                    output_str += self._input_decode[char]
-
-        else:
+        if not set(self._input_decode).issubset(set(self._alphabet_decode)):
             raise ValueError('Wrong input string')
+        for char in range(len(self._input_decode)):
+            output_str += self._input_decode[char - 1] * (int(self._input_decode[char]) - 1) if self._input_decode[char].isdigit() else self._input_decode[char]
+
         return output_str
 
     def most_common(self) -> str:
@@ -80,33 +73,28 @@ class Num_to_string():
 
     def to_string(self) -> str:
         output_string = str()
-        if self._number is not None:
-
-            if self._number > 99:
-                if self._number % 100 not in range(11, 20):
-                    output_string += self.hundreds(self._number //
-                                                   100 - 1) + ' '
-                    output_string += self.tens(self._number %
-                                               100 // 10 - 1) + ' '
-                    output_string += self.units(self._number % 10 - 1)
-                else:
-                    output_string += self.hundreds(self._number //
-                                                   100 - 1) + ' '
-                    output_string += self.tens_eleven_to_nineteen(
-                        self._number % 100-11)
-
-            elif self._number > 9:
-                if self._number % 100 not in range(11, 20):
-                    output_string += self.tens(self._number // 10 - 1) + ' '
-                    output_string += self.units(self._number % 10 - 1)
-                else:
-                    output_string += self.tens_eleven_to_nineteen(
-                        self._number % 10 - 1)
-            else:
-                output_string += self.units(self._number - 1)
-        else:
+        if self._number is None:
             raise ValueError('Wrong number')
 
+        if self._number > 99:
+            if self._number % 100 not in range(11, 20):
+                output_string += f'{self.hundreds(self._number // 100 - 1)} '
+                output_string += f'{self.tens(self._number % 100 // 10 - 1)} '
+                output_string += self.units(self._number % 10 - 1)
+            else:
+                output_string += f'{self.hundreds(self._number // 100 - 1)} '
+                output_string += self.tens_eleven_to_nineteen(
+                    self._number % 100-11)
+
+        elif self._number > 9:
+            if self._number % 100 not in range(11, 20):
+                output_string += f'{self.tens(self._number // 10 - 1)} '
+                output_string += self.units(self._number % 10 - 1)
+            else:
+                output_string += self.tens_eleven_to_nineteen(
+                    self._number % 10 - 1)
+        else:
+            output_string += self.units(self._number - 1)
         return f'{str(self._number)}:{output_string}'
 
 
