@@ -17,10 +17,9 @@ class PrettyPrinter():
         # 2.2
     def triangle(self):
         print('#2.2:')
-        triangle_list = list()
+        triangle_list = []
         for maximum in range(1, self._number+1):
-            output_str = str()
-            output_str += ''.join([str(i) for i in range(1, maximum+1)])
+            output_str = str() + ''.join([str(i) for i in range(1, maximum+1)])
             output_str += ''.join([str(i) for i in range(maximum-1, 0, -1)])
             triangle_list.append(output_str)
 
@@ -30,10 +29,9 @@ class PrettyPrinter():
 
     def triangle_round(self):
         print('\n\n#2.3:')
-        triangle_list = list()
+        triangle_list = []
         whitespaces = len(str(self._number))
         for maximum in range(1, self._number+1):
-            output_str = str()
             temp_list = [str(i) for i in range(1, maximum+1)]
             temp_list_reversed = [str(i) for i in range(maximum-1, 0, -1)]
 
@@ -41,7 +39,7 @@ class PrettyPrinter():
             temp_list_reversed = [i.rjust(whitespaces, ' ')
                                   for i in temp_list_reversed]
 
-            output_str += ''.join(temp_list+temp_list_reversed)
+            output_str = str() + ''.join(temp_list+temp_list_reversed)
             triangle_list.append(output_str)
 
         for item in triangle_list:
