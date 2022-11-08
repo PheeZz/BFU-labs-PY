@@ -5,7 +5,7 @@ from copy import deepcopy
 from os import mkdir, listdir, getcwd
 
 
-class csv_show():
+class csv_work():
     def __init__(self, file_name):
         self.file_name = file_name
 
@@ -102,7 +102,7 @@ class csv_show():
 
 
 if __name__ == '__main__':
-    test_csv = csv_show('lab_6/myFile0.csv')
+    test_csv = csv_work('lab_6/myFile0.csv')
     test_csv.Show()
     print(test_csv.Info())
     test_csv.DelNaN()
