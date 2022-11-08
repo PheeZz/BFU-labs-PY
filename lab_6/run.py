@@ -9,7 +9,7 @@ class csv_show():
     def __init__(self, file_name):
         self.file_name = file_name
 
-    def show(self, view_start_from: str = 'top', view_count: int = 5):
+    def Show(self, view_start_from: str = 'top', view_count: int = 5):
         with open(self.file_name, 'r') as f:
             reader = csv.reader(f)
             data = list(reader)
@@ -41,7 +41,7 @@ class csv_show():
                       headers=headers,
                       tablefmt='simple_grid'))
 
-    def file_info(self):
+    def Info(self):
         """return file info such as unenmpty rows and columns as dict"""
         with open(self.file_name, 'r') as f:
             reader = csv.reader(f)
@@ -60,7 +60,7 @@ class csv_show():
                     'empty_rows': empty_rows,
                     'empty_columns': empty_columns}
 
-    def delete_all_empty_strings(self):
+    def DelNaN(self):
         # delete all strings with at least one empty cell
         deletions_count = 0
         with open(self.file_name, 'r') as f:
@@ -77,7 +77,7 @@ class csv_show():
             writer = csv.writer(f)
             writer.writerows(data)
 
-    def make_DS(self):
+    def MakeDS(self):
         # shuffle data
         with open(self.file_name, 'r') as f:
             reader = csv.reader(f)
@@ -103,7 +103,7 @@ class csv_show():
 
 if __name__ == '__main__':
     test_csv = csv_show('lab_6/myFile0.csv')
-    test_csv.show()
-    print(test_csv.file_info())
-    test_csv.delete_all_empty_strings()
-    test_csv.make_DS()
+    test_csv.Show()
+    print(test_csv.Info())
+    test_csv.DelNaN()
+    test_csv.MakeDS()
