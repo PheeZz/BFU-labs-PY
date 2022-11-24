@@ -63,18 +63,18 @@ class csv_work():
     def DelNaN(self):
         # delete all strings with at least one empty cell
         deletions_count = 0
-        with open(self.file_name, 'r') as f:
+        with open(self.file_name, 'r') as f:  # load file
             reader = csv.reader(f)
-            data = list(reader)
-            for row in data:
-                if '' in row:
-                    data.remove(row)
-                    deletions_count += 1
-        # delete all empty rows in data
+            data = list(reader)  # put file data to list variable
+            for row in data:  # start checking each row for empty cells
+                if '' in row:  # if found empty cell
+                    data.remove(row)  # delete row from data variable
+                    deletions_count += 1  # update deletions counter
         print('-'*20, 'Удалено строк:', deletions_count, '-'*20)
 
-        with open(self.file_name, 'w', newline='') as f:
+        with open(self.file_name, 'w', newline='') as f:  # open file for writing
             writer = csv.writer(f)
+            # rewrite file with new data
             writer.writerows(data)
 
     def MakeDS(self):
