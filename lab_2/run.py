@@ -1,5 +1,6 @@
 import functools
 
+
 class Triangle():
     def __init__(self, pascal_value: int = 10, sierpinski_value: int = 3) -> None:
         self._pascal_value = pascal_value
@@ -26,9 +27,10 @@ class Triangle():
 
     def sierpinski(self):
         """Sierpinski triangle"""
-        def aggregate(TRIANGLE, I):
-            SPACE = " " * (2 ** I)
+        def aggregate(TRIANGLE, iteration):
+            SPACE = " " * (2 ** iteration)
             return ([SPACE+X+SPACE for X in TRIANGLE] + [f"{X} {X}" for X in TRIANGLE])
+
         print('\n\nSierpinski triangle:')
         print('\n'.join(functools.reduce(
             aggregate, range(self._sierpinski_value), ["*"])))
