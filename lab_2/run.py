@@ -1,10 +1,9 @@
-from pprint import pprint
-
+import functools
 
 class Triangle():
-    def __init__(self, pascal_value: int = 10, serpinsky_value: int = 3) -> None:
+    def __init__(self, pascal_value: int = 10, sierpinski_value: int = 3) -> None:
         self._pascal_value = pascal_value
-        self._serpinsky_value = serpinsky_value
+        self._sierpinski_value = sierpinski_value
 
     def pascal(self):
         # Pascal triangle
@@ -25,20 +24,18 @@ class Triangle():
         for value in triangle:
             print(value.center(len(triangle[-1]), ' '))
 
-    def serpinsky(self):
-        # Sierpinski triangle
-        # create matrix 20x20
-        triangle = [[' ' for _ in range(20)] for _ in range(20)]
-        # set start points
-        triangle[0][9], triangle[-1][0], triangle[-1][-1] = '*', '*', '*'
-        print()
-        # TODO: make it work
+    def sierpinski(self):
+        """Sierpinski triangle"""
+        def aggregate(TRIANGLE, I):
+            SPACE = " " * (2 ** I)
+            return ([SPACE+X+SPACE for X in TRIANGLE] + [f"{X} {X}" for X in TRIANGLE])
+        print('\n\nSierpinski triangle:')
+        print('\n'.join(functools.reduce(
+            aggregate, range(self._sierpinski_value), ["*"])))
 
 
 if __name__ == '__main__':
     # _ = Triangle(int(input('Enter number for Pascal triangle: ')))
     _ = Triangle()
     _.pascal()
-    _.serpinsky()
-
-
+    _.sierpinski()
