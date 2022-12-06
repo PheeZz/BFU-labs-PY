@@ -102,7 +102,7 @@ class csv_work():
 
 
 if __name__ == '__main__':
-    test_csv = csv_work('lab_6/myFile0.csv')
+    test_csv = csv_work('final_task_1/myFile0.csv')
     test_csv.Show()
     print(test_csv.Info())
     test_csv.DelNaN()
