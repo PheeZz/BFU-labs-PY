@@ -1,6 +1,8 @@
 import numpy as np
 from pprint import pformat
 from copy import deepcopy
+from scipy import stats
+from timeit import timeit
 
 
 def save_matrix(string: str):
@@ -57,10 +59,13 @@ def max_after_zero(vector: np.ndarray = np.array([6, 2, 0, 3, 0, 0, 5, 7, 0])) -
     return None
 
 
-def density_log_of_multivariate_normal_distribution(dots_X, size: tuple, EX, lenght_vector, cov_matrix):
+def density_log_of_multivariate_normal_distribution(dots_X: np.ndarray = np.array([1, 0]), size: tuple = None,
+                                                    EX: np.ndarray = np.array([0, 0]), lenght_vector: int = 1,
+                                                    cov_matrix: np.ndarray = np.array([[1, 0], [0, 1]])):
     """TASK 5\n
     return density log of multivariate normal distribution"""
-    return np.log(np.linalg.det(cov_matrix)) - lenght_vector * np.log(2 * np.pi) - 0.5 * (dots_X - EX).T @ np.linalg.inv(cov_matrix) @ (dots_X - EX)
+    return np.log(np.linalg.det(cov_matrix)) - lenght_vector * np.log(2 * np.pi) \
+        - 0.5 * (dots_X - EX).T @ np.linalg.inv(cov_matrix) @ (dots_X - EX)
 
 
 def switch_rows(matrix: np.ndarray = np.arange(16).reshape(4, 4), index_row_first: int = 0, index_row_second: int = 2) -> np.ndarray:
@@ -108,12 +113,21 @@ if __name__ == "__main__":
     print(f'TASK 4:\n\tRandom vector: {random_vector}\n\
         Maximum value after zero: {max_after_zero(random_vector)}', end="\n\n\n")
 
-    # print(f'TASK 5:\n\tDots X: {dots_X}\n\
-    #     Size: {size}\n\
-    #     EX: {EX}\n\
-    #     Lenght vector: {lenght_vector}\n\
-    #     Covariance matrix: {cov_matrix}\n\
-    #     Density log of multivariate normal distribution: {density_log_of_multivariate_normal_distribution(dots_X, size, EX, lenght_vector, cov_matrix)}', end="\n\n\n")
+    dots_X, size, EX, lenght_vector, cov_matrix = np.array(
+        [1, 0]), (2, 2), np.array([0, 0]), 2, np.array([[1, 0], [0, 1]])
+
+    print(f'TASK 5:\n\tDots X: {dots_X}\n\
+        Size: {size}\n\
+        EX: {EX}\n\
+        Lenght vector: {lenght_vector}\n\
+        Covariance matrix: {cov_matrix}\n\
+        Density log of multivariate normal distribution\n\
+        numpy variation:\n\
+        {density_log_of_multivariate_normal_distribution(dots_X, size, EX, lenght_vector, cov_matrix)}\n\
+        Time of numpy variation: {timeit("density_log_of_multivariate_normal_distribution(dots_X, size, EX, lenght_vector, cov_matrix)", setup="from __main__ import density_log_of_multivariate_normal_distribution, dots_X, size, EX, lenght_vector, cov_matrix"):.4f}\n\n\
+        scipy variation:\n\
+        {stats.multivariate_normal.logpdf(dots_X, mean=EX, cov=cov_matrix)}\n\
+        Time of scipy variation: {timeit("stats.multivariate_normal.logpdf(dots_X, mean=EX, cov=cov_matrix)", setup="from scipy import stats; from __main__ import dots_X, EX, cov_matrix")}', end="\n\n\n")
 
     task_6_answers = switch_rows()
     print(f'TASK 6:\n\tOld matrix:\n{task_6_answers[0]}\n\
