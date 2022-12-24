@@ -39,3 +39,6 @@ if __name__ == '__main__':
         _._input_list = rotation
         print(
             f'Repetitions for input list:\n{_._input_list}\n{_.repetitions()}', end='\n\n')
+
+
+
